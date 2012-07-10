@@ -1,4 +1,10 @@
 *.class
+core/target
+core/target/*
+theory/target
+theory/target/*
+math/target
+math/target/*
 
 # Package Files #
 *.jar
