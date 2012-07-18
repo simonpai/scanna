@@ -6,8 +6,7 @@ package org.scanna.struct;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-/**
- * A skeleton implementation of @{link Iterator}.
+/** A skeleton implementation of @{link Iterator}.
  * @author simonpai
  */
 public abstract class CachedIterator<T> implements Iterator<T> {
@@ -38,15 +37,14 @@ public abstract class CachedIterator<T> implements Iterator<T> {
 		return _next;
 	}
 	
-	protected void loadNext(){
-		if(_ready) return;
+	protected void loadNext() {
+		if (_ready)
+			return;
 		_next = seekNext();
 		_ready = true;
 	}
 	
-	/**
-	 * Returns next element for iterator.
-	 */
+	/** Returns next element for iterator, null if not available. */
 	protected abstract T seekNext();
 	
 }

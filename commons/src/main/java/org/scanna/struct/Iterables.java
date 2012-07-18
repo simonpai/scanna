@@ -31,7 +31,17 @@ public class Iterables {
 		};
 	}
 	
-	/**
+	/** TODO
+	 */
+	public static <T> Iterable<T> filter(final Iterable<T> iterable, final Filter<T> filter) {
+		return new Iterable<T>() {
+			public Iterator<T> iterator() {
+				return new FilterIterator<T>(iterable.iterator(), filter);
+			}
+		};
+	}
+	
+	/** TODO
 	 */
 	public static <T> Iterable<T> singleton(final Factory<T> factory) {
 		return new Iterable<T>() {
@@ -41,7 +51,7 @@ public class Iterables {
 		};
 	}
 	
-	/**
+	/** TODO
 	 */
 	public static <T> Iterable<T> singleton(final T item) {
 		return new Iterable<T>() {
