@@ -23,6 +23,18 @@ public class Texts {
 		return str == null || str.trim().isEmpty();
 	}
 	
+	/** Return string with given prefix deleted, if any
+	 */
+	public static String removePrefix(String str, String prefix) {
+		return str != null && str.startsWith(prefix) ? str.substring(prefix.length()) : str;
+	}
+	
+	/** Return string with given suffix deleted, if any
+	 */
+	public static String removeSuffix(String str, String suffix) {
+		return str != null && str.endsWith(suffix) ? str.substring(0, str.length() - suffix.length()) : str;
+	}
+	
 	// conventions //
 	/**
 	 * 
