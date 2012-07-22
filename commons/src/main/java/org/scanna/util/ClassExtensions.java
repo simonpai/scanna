@@ -47,7 +47,7 @@ public class ClassExtensions {
 			if (mod > 0)
 				sb.append(Modifier.toString(mod)).append(" ");
 			if (ft instanceof Class)
-				sb.append(getTypeName((Class<?>) ft)); // TODO: type bound
+				sb.append(getTypeName((Class<?>) ft)); // TODO: type param, type bound, unprefix
 			else
 				sb.append(ft.toString());
 			sb.append(" ").append(fn).append(" = ").append(cn).append(".").append(fn).append(";");
@@ -126,7 +126,7 @@ public class ClassExtensions {
 				// return type
 				sb.append(((genRetType instanceof Class) ? 
 					getTypeName((Class<?>) genRetType) : 
-					Texts.unprefix(genRetType.toString(), "java.lang.")) + " ");
+						unprev(genRetType.toString())) + " ");
 				
 				// method name, parameter
 				sb.append(mn + "(");
@@ -180,13 +180,17 @@ public class ClassExtensions {
 					c = c.getComponentType();
 				}
 				StringBuffer sb = new StringBuffer();
-				sb.append(Texts.unprefix(c.getName(), "java.lang."));
+				sb.append(unprev(c.getName()));
 				for (int i = 0; i < dimensions; i++)
 					sb.append("[]");
 				return sb.toString();
 			} catch (Throwable e) {} /* FALLTHRU */
 		}
-		return Texts.unprefix(type.getName(), "java.lang.");
+		return unprev(type.getName());
+	}
+	
+	private static String unprev(String str) {
+		return Texts.unprefix(str, "java.lang.");
 	}
 	
 }
