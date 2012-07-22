@@ -126,7 +126,7 @@ public class ClassExtensions {
 				// return type
 				sb.append(((genRetType instanceof Class) ? 
 					getTypeName((Class<?>) genRetType) : 
-					Texts.removePrefix(genRetType.toString(), "java.lang.")) + " ");
+					Texts.unprefix(genRetType.toString(), "java.lang.")) + " ");
 				
 				// method name, parameter
 				sb.append(mn + "(");
@@ -180,13 +180,13 @@ public class ClassExtensions {
 					c = c.getComponentType();
 				}
 				StringBuffer sb = new StringBuffer();
-				sb.append(Texts.removePrefix(c.getName(), "java.lang."));
+				sb.append(Texts.unprefix(c.getName(), "java.lang."));
 				for (int i = 0; i < dimensions; i++)
 					sb.append("[]");
 				return sb.toString();
 			} catch (Throwable e) {} /* FALLTHRU */
 		}
-		return Texts.removePrefix(type.getName(), "java.lang.");
+		return Texts.unprefix(type.getName(), "java.lang.");
 	}
 	
 }

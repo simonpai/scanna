@@ -9,15 +9,13 @@ package org.scanna.util;
  */
 public class Texts {
 	
-	/**
-	 * 
+	/** Return true if the String is null or empty.
 	 */
 	public static boolean isEmpty(String str) {
 		return str == null || str.isEmpty();
 	}
 	
-	/**
-	 * 
+	/** Return true if the String is null or the trimmed String is empty.
 	 */
 	public static boolean isBlank(String str) {
 		return str == null || str.trim().isEmpty();
@@ -25,14 +23,16 @@ public class Texts {
 	
 	/** Return string with given prefix deleted, if any
 	 */
-	public static String removePrefix(String str, String prefix) {
-		return str != null && str.startsWith(prefix) ? str.substring(prefix.length()) : str;
+	public static String unprefix(String str, String prefix) {
+		return str != null && str.startsWith(prefix) ? 
+				str.substring(prefix.length()) : str;
 	}
 	
 	/** Return string with given suffix deleted, if any
 	 */
-	public static String removeSuffix(String str, String suffix) {
-		return str != null && str.endsWith(suffix) ? str.substring(0, str.length() - suffix.length()) : str;
+	public static String unsuffix(String str, String suffix) {
+		return str != null && str.endsWith(suffix) ? 
+				str.substring(0, str.length() - suffix.length()) : str;
 	}
 	
 	// conventions //
