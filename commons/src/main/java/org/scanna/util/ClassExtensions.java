@@ -47,7 +47,7 @@ public class ClassExtensions {
 			if (mod > 0)
 				sb.append(Modifier.toString(mod)).append(" ");
 			if (ft instanceof Class)
-				sb.append(getTypeName((Class<?>) ft));
+				sb.append(getTypeName((Class<?>) ft)); // TODO: type bound
 			else
 				sb.append(ft.toString());
 			sb.append(" ").append(fn).append(" = ").append(cn).append(".").append(fn).append(";");
@@ -106,10 +106,18 @@ public class ClassExtensions {
 					for (Type typeparm : typeparms) {
 						if (!first)
 							sb.append(", ");
+						
+						/*
+						if (typeparm instanceof TypeVariable) {
+							TypeVariable<?> tv = (TypeVariable<?>) typeparm;
+							Type[] bounds = tv.getBounds(); // TODO: type bound
+						}
+						*/
 						if (typeparm instanceof Class)
 							sb.append(((Class<?>) typeparm).getName());
 						else
 							sb.append(typeparm.toString());
+						
 						first = false;
 					}
 					sb.append("> ");
