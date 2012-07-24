@@ -35,6 +35,19 @@ public class Texts {
 				str.substring(0, str.length() - suffix.length()) : str;
 	}
 	
+	/** 
+	 */
+	public static int indexOfUnescaped(String str, char c, char esc, int startIndex) {
+		boolean escaped = false;
+		for (int j = startIndex; j < str.length(); j++) {
+			char cx = str.charAt(j);
+			if (!escaped && cx == c)
+				return j;
+			escaped = cx == esc && !escaped;
+		}
+		return -1;
+	}
+	
 	// conventions //
 	/**
 	 * 
@@ -108,6 +121,13 @@ public class Texts {
 		for (int i = 1; i < objs.length; i++) 
 			sb.append(separator).append(objs[i]);
 		return sb.toString();
+	}
+	
+	/**
+	 * 
+	 */
+	public static String nullify(String str) {
+		return str == null ? str : str.replaceAll("\\S", " ");
 	}
 	
 	/**
