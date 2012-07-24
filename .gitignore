@@ -10,3 +10,9 @@ math/target/*
 *.jar
 *.war
 *.ear
+
+# Private Test Cases #
+*/src/test/java/_private
+*/src/test/java/_private/*
+*/src/test/resource/_private
+*/src/test/resource/_private/*
