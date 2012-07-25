@@ -17,39 +17,32 @@ import static org.scanna.segment.SegmentPattern.END_OF_LINE;;
  */
 public class SegmentEngine {
 	
-	protected final Document _document;
 	protected final List<SegmentPattern> _ptns = new LinkedList<SegmentPattern>();
 	
 	protected SegmentPattern _ptn = null;
 	
-	public SegmentEngine(Document document) {
-		_document = document;
+	public SegmentEngine(SegmentPattern ... patterns) {
+		for (SegmentPattern ptn : patterns)
+			_ptns.add(ptn);
 	}
 	
-	// pattern //
-	public void add(SegmentPattern pattern) {
-		_ptns.add(pattern);
-	}
-	
-	public void remove(SegmentPattern pattern) {
-		_ptns.remove(pattern);
-	}
-	
-	public List<Line> run() {
-		List<String> rawContent = _document.getContent();
+	public List<Line> run(Document document) {
+		List<String> rawContent = document.getContent();
 		List<Line> res = new ArrayList<Line>(rawContent.size());
+		SegmentationContext ctx = new SegmentationContext();
 		int row = 1; // 1-based
 		for (String str : rawContent) {
-			List<Segment> segs = segment(_document, row, str);
-			res.add(createLine(_document, row, segs));
+			List<Segment> segs = segment(document, row, str, ctx);
+			res.add(createLine(document, row, segs, ctx));
 			row++;
 		}
 		return res;
 	}
 	
-	protected List<Segment> segment(Document document, final int row, String str) {
+	protected List<Segment> segment(Document document, final int row, 
+			String str, SegmentationContext ctx) {
 		List<Segment> res = new ArrayList<Segment>();
-		SegmentPattern currPtn = _ptn; // continue from previous line
+		SegmentPattern currPtn = ctx.getPattern(); // continue from previous line
 		final int strlen = str.length();
 		boolean first = true;
 		
@@ -92,7 +85,7 @@ public class SegmentEngine {
 			
 		}
 		
-		_ptn = currPtn;
+		ctx.setPattern(currPtn);
 		return res;
 	}
 	
@@ -103,8 +96,17 @@ public class SegmentEngine {
 				ptn == null ? Segment.RAW : ptn.getType(str, start, end));
 	}
 	
-	protected Line createLine(Document document, int row, List<Segment> segments) {
+	protected Line createLine(Document document, int row, 
+			List<Segment> segments, SegmentationContext ctx) {
 		return new Line(document, row, segments);
+	}
+	
+	protected static class SegmentationContext {
+		protected SegmentPattern _ptn = null;
+		
+		public SegmentPattern getPattern() { return _ptn; }
+		public void setPattern(SegmentPattern pattern) { _ptn = pattern; }
+		
 	}
 	
 }
