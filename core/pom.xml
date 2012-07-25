@@ -13,11 +13,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.scanna</groupId>
-			<artifactId>scanna-theory</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.scanna</groupId>
 			<artifactId>scanna-commons</artifactId>
 			<version>${project.version}</version>
 		</dependency>
