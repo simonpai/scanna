@@ -4,12 +4,13 @@
 package org.scanna.segment;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.scanna.model.Document;
+import org.scanna.segment.impl.UnionSegmentPattern;
+
+import static org.scanna.segment.SegmentPattern.END_OF_LINE;
 import static org.scanna.segment.SegmentPattern.NOT_FOUND;
-import static org.scanna.segment.SegmentPattern.END_OF_LINE;;
 
 /**
  * 
@@ -17,13 +18,10 @@ import static org.scanna.segment.SegmentPattern.END_OF_LINE;;
  */
 public class SegmentEngine {
 	
-	protected final List<SegmentPattern> _ptns = new LinkedList<SegmentPattern>();
-	
-	protected SegmentPattern _ptn = null;
+	protected final SegmentPattern _pptns;
 	
 	public SegmentEngine(SegmentPattern ... patterns) {
-		for (SegmentPattern ptn : patterns)
-			_ptns.add(ptn);
+		_pptns = new UnionSegmentPattern(patterns);
 	}
 	
 	public List<Line> run(Document document) {
@@ -40,60 +38,63 @@ public class SegmentEngine {
 	}
 	
 	protected List<Segment> segment(Document document, final int row, 
-			String str, SegmentationContext ctx) {
+			String str, SegmentationContext sctx) {
 		List<Segment> res = new ArrayList<Segment>();
-		SegmentPattern currPtn = ctx.getPattern(); // continue from previous line
+		
+		// continue from previous line
+		int currType = sctx.getType();
+		SegmentPatternContext currCtx = sctx.getPattern();
+		
 		final int strlen = str.length();
 		boolean first = true;
 		
 		for (int i = 0; i < strlen; ) {
 			int j = NOT_FOUND;
-			SegmentPattern newPtn = null;
+			SegmentPatternContext newCtx = null;
+			int newType = Segment.RAW;
 			
-			if (currPtn == null) // raw
-				for (SegmentPattern ptn : _ptns) {
-					int jc = ptn.findOpenIndex(str, i);
-					if (jc != NOT_FOUND && (j == NOT_FOUND || jc < j)) {
-						j = jc;
-						newPtn = ptn;
-					}
-				}
-			else {
-				j = currPtn.findCloseIndex(str, i, first);
+			if (currCtx == null) { // raw
+				newCtx = _pptns.match(str, i);
+				j = newCtx == null ? NOT_FOUND : newCtx.start();
+			} else {
+				int[] ends = currCtx.end(str, first ? -1 : i);
+				j = ends[0];
+				newType = ends[1];
 				if (j >= 0)
-					newPtn = null;
+					newCtx = null;
 			}
 			first = false;
 			
 			// TODO: organize
 			if (i != j)
-				res.add(createSegment(str, row, i, j, currPtn));
+				res.add(createSegment(str, row, i, j, newType));
 			
 			if (j == END_OF_LINE) {
-				currPtn = null;
+				currCtx = null;
+				currType = Segment.RAW;
 				break;
 			} else if (j == NOT_FOUND)
 				break;
 			
 			i = j;
-			currPtn = newPtn;
+			currCtx = newCtx;
+			currType = newType;
 			
 			// if a non-RAW blocked closed at line end, we need to insert an empty
 			// RAW block to separate the first block of potentially the same type 
 			if (j == strlen)
-				res.add(createSegment(str, row, j, j, null));
+				res.add(createSegment(str, row, j, j, Segment.RAW));
 			
 		}
 		
-		ctx.setPattern(currPtn);
+		sctx.update(currCtx, currType);
 		return res;
 	}
 	
 	protected Segment createSegment(String str, int row, int start, int end, 
-			SegmentPattern ptn) {
+			int type) {
 		return new Segment(row, start, end < 0 ? 
-				str.substring(start) : str.substring(start, end), 
-				ptn == null ? Segment.RAW : ptn.getType(str, start, end));
+				str.substring(start) : str.substring(start, end), type);
 	}
 	
 	protected Line createLine(Document document, int row, 
@@ -102,10 +103,16 @@ public class SegmentEngine {
 	}
 	
 	protected static class SegmentationContext {
-		protected SegmentPattern _ptn = null;
+		protected SegmentPatternContext _ctx = null;
+		protected int _type = Segment.RAW;
 		
-		public SegmentPattern getPattern() { return _ptn; }
-		public void setPattern(SegmentPattern pattern) { _ptn = pattern; }
+		public SegmentPatternContext getPattern() { return _ctx; }
+		public int getType() { return _type; }
+		
+		public void update(SegmentPatternContext ctx, int type) {
+			_ctx = ctx;
+			_type = type;
+		}
 		
 	}
 	

@@ -46,6 +46,8 @@ public class Line {
 		return getContent(null);
 	}
 	
+	// TODO: support LineMask
+	
 	/** Return a masked string depending the mask option.
 	 * @param mask // TODO
 	 */

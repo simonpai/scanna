@@ -11,6 +11,7 @@ import org.scanna.util.Texts;
  */
 public class Segment {
 	
+	// TODO: better way to freely enum?
 	/** The raw type. */
 	public static final int RAW = 0xFFFF;
 	/** comment */
