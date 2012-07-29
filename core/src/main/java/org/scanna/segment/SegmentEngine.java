@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.scanna.model.Document;
-import org.scanna.segment.impl.UnionSegmentPattern;
+import org.scanna.segment.impl.CollectivePattern;
 
 import static org.scanna.segment.SegmentPattern.END_OF_LINE;
 import static org.scanna.segment.SegmentPattern.NOT_FOUND;
@@ -21,7 +21,7 @@ public class SegmentEngine {
 	protected final SegmentPattern _pptns;
 	
 	public SegmentEngine(SegmentPattern ... patterns) {
-		_pptns = new UnionSegmentPattern(patterns);
+		_pptns = new CollectivePattern(patterns);
 	}
 	
 	public List<Line> run(Document document) {

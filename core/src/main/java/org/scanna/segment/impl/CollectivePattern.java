@@ -10,11 +10,11 @@ import org.scanna.segment.SegmentPatternContext;
  * 
  * @author simonpai
  */
-public class UnionSegmentPattern implements SegmentPattern {
+public class CollectivePattern implements SegmentPattern {
 	
 	protected final SegmentPattern[] _ptns;
 	
-	public UnionSegmentPattern(SegmentPattern[] patterns) {
+	public CollectivePattern(SegmentPattern[] patterns) {
 		_ptns = patterns.clone();
 	}
 	

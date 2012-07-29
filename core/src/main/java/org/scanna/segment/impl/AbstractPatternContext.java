@@ -6,14 +6,14 @@ package org.scanna.segment.impl;
 import org.scanna.segment.SegmentPatternContext;
 
 /**
- * 
+ * TODO: remove
  * @author simonpai
  */
-public abstract class AbstractSegmentPatternContext implements SegmentPatternContext {
+public abstract class AbstractPatternContext implements SegmentPatternContext {
 	
 	protected final int _start, _type;
 	
-	protected AbstractSegmentPatternContext(int start, int type) {
+	protected AbstractPatternContext(int start, int type) {
 		_start = start;
 		_type = type;
 	}

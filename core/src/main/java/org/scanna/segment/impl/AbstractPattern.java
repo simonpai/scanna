@@ -6,12 +6,12 @@ import org.scanna.segment.SegmentPattern;
  * The skeleton implementation of {@link SegmentPattern}.
  * @author simonpai
  */
-public abstract class AbstractSegmentPattern implements SegmentPattern {
+public abstract class AbstractPattern implements SegmentPattern {
 	
 	protected final String _name;
 	protected final int _type;
 	
-	public AbstractSegmentPattern(int type, String name) {
+	public AbstractPattern(int type, String name) {
 		_type = type;
 		_name = name;
 	}
