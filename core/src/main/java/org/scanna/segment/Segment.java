@@ -57,31 +57,31 @@ public class Segment {
 	
 	/** Return the content of this segment.
 	 */
-	public String getContent() {
+	public String content() {
 		return _content;
 	}
 	
 	/** Return the type of this segment.
 	 */
-	public int getType() {
+	public int type() {
 		return _type;
 	}
 	
 	/** Return the row number of this segment.
 	 */
-	public int getRow() {
+	public int row() {
 		return _row;
 	}
 	
 	/** Return the column number of this segment.
 	 */
-	public int getCol() {
+	public int col() {
 		return _col;
 	}
 	
 	/** Retrieve custom data object, if any.
 	 */
-	public Object getData() {
+	public Object data() {
 		return _data;
 	}
 	

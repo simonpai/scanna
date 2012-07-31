@@ -57,7 +57,7 @@ public class Line {
 		if (cached == null) {
 			StringBuilder sb = new StringBuilder();
 			for (Segment seg : _segments)
-				sb.append(mask != null ? mask.mask(seg) : seg.getContent());
+				sb.append(mask != null ? mask.mask(seg) : seg.content());
 			_contentCache.put(mask, cached = sb.toString());
 		}
 		return cached;
@@ -70,11 +70,11 @@ public class Line {
 	}
 	
 	/** Return true if this line contains a {@link Segment} of given type.
-	 * @param type a segment type. See {@link Segment#getType()}.
+	 * @param type a segment type. See {@link Segment#type()}.
 	 */
 	public boolean hasType(int type) {
 		for (Segment seg : _segments)
-			if (seg.getType() == type)
+			if (seg.type() == type)
 				return true;
 		return false;
 	}
@@ -85,7 +85,7 @@ public class Line {
 		List<Integer> list = new ArrayList<Integer>();
 		int i = 0;
 		for (Segment seg : _segments) {
-			if (seg.getType() == type)
+			if (seg.type() == type)
 				list.add(i);
 			i++;
 		}

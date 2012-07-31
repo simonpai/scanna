@@ -26,16 +26,16 @@ public class CommonMasks {
 	 */
 	public static class CodeMask implements SegmentMask {
 		public String mask(Segment segment) {
-			switch(segment.getType()) {
+			switch(segment.type()) {
 			case Segment.COMMENT:
 			case Segment.DOCUMENTATION:
-				return Texts.nullify(segment.getContent());
+				return Texts.nullify(segment.content());
 			case Segment.SINGLE_QUOTED:
-				return "'" + Texts.repeat('*', segment.getContent().length() - 2) + "'";
+				return "'" + Texts.repeat('*', segment.content().length() - 2) + "'";
 			case Segment.DOUBLE_QUOTED:
-				return "\"" + Texts.repeat('*', segment.getContent().length() - 2) + "\"";
+				return "\"" + Texts.repeat('*', segment.content().length() - 2) + "\"";
 			}
-			return segment.getContent();
+			return segment.content();
 		}
 	}
 	
@@ -43,9 +43,9 @@ public class CommonMasks {
 	 */
 	public static class DocMask implements SegmentMask {
 		public String mask(Segment segment) {
-			if (segment.getType() == Segment.DOCUMENTATION)
-				return segment.getContent();
-			return Texts.nullify(segment.getContent());
+			if (segment.type() == Segment.DOCUMENTATION)
+				return segment.content();
+			return Texts.nullify(segment.content());
 		}
 	}
 	
