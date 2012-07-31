@@ -22,29 +22,36 @@ public class Segment {
 	public static final int SINGLE_QUOTED = 0xFF02;
 	/** double quoted string */
 	public static final int DOUBLE_QUOTED = 0xFF03;
+	/** language keyword */
+	public static final int KEYWORD = 0xFF10;
 	
 	
 	
 	private final String _content;
 	private final int _type, _col, _row;
+	private final Segment _prev;
+	private Segment _next;
 	private final Object _data;
 	
 	/** Constructor
 	 */
-	public Segment(int row, int col, String content, int type) {
-		this(row, col, content, type, null);
+	public Segment(int row, int col, String content, int type, Segment previous) {
+		this(row, col, content, type, previous, null);
 	}
 	
 	/** Constructor
 	 * @param data Custom data object to store any additional information.
 	 */
-	public Segment(int row, int col, String content, int type, Object data) {
+	public Segment(int row, int col, String content, int type, Segment previous, Object data) {
 		if (content == null)
 			throw new IllegalArgumentException("Content cannot be null.");
 		_content = content;
 		_type = type;
 		_col = col;
 		_row = row;
+		_prev = previous;
+		if (previous != null)
+			previous._next = this;
 		_data = data;
 	}
 	
@@ -76,6 +83,18 @@ public class Segment {
 	 */
 	public Object getData() {
 		return _data;
+	}
+	
+	/** Retrieve the previous {@link Segment} in the same {@link Line}.
+	 */
+	public Segment previous() {
+		return _prev;
+	}
+	
+	/** Retrieve the next {@link Segment} in the same {@link Line}.
+	 */
+	public Segment next() {
+		return _next;
 	}
 	
 	/** Return true if the content string is blank.

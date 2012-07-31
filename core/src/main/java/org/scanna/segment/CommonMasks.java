@@ -14,7 +14,17 @@ public class CommonMasks {
 	/** A mask that nullifies comment/documentation and replaces single/double
 	 * quoted content with <tt>*</tt>.
 	 */
-	public static final SegmentMask CODE = new SegmentMask() {
+	public static final SegmentMask CODE = new CodeMask();
+	
+	/** A mask that nullifies everything except documentation.
+	 */
+	public static final SegmentMask DOC = new DocMask();
+	
+	
+	
+	/** The {@link CommonMasks#CODE} mask implementation class, exposed for easier overriding.
+	 */
+	public static class CodeMask implements SegmentMask {
 		public String mask(Segment segment) {
 			switch(segment.getType()) {
 			case Segment.COMMENT:
@@ -27,16 +37,16 @@ public class CommonMasks {
 			}
 			return segment.getContent();
 		}
-	};
+	}
 	
-	/** A mask that nullifies everything except documentation.
+	/** The {@link CommonMasks#DOC} mask implementation class, exposed for easier overriding.
 	 */
-	public static final SegmentMask DOC = new SegmentMask() {
+	public static class DocMask implements SegmentMask {
 		public String mask(Segment segment) {
 			if (segment.getType() == Segment.DOCUMENTATION)
 				return segment.getContent();
 			return Texts.nullify(segment.getContent());
 		}
-	};
+	}
 	
 }

@@ -3,6 +3,7 @@
  */
 package org.scanna.segment;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -76,6 +77,22 @@ public class Line {
 			if (seg.getType() == type)
 				return true;
 		return false;
+	}
+	
+	/** 
+	 */
+	public int[] indicesOf(int type) {
+		List<Integer> list = new ArrayList<Integer>();
+		int i = 0;
+		for (Segment seg : _segments) {
+			if (seg.getType() == type)
+				list.add(i);
+			i++;
+		}
+		int[] res = new int[list.size()];
+		for (int j = 0; j < list.size(); j++)
+			res[j] = list.get(j);
+		return res;
 	}
 	
 	@Override

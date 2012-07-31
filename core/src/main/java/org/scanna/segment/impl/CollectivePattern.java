@@ -4,7 +4,6 @@
 package org.scanna.segment.impl;
 
 import org.scanna.segment.SegmentPattern;
-import org.scanna.segment.SegmentPatternContext;
 
 /**
  * 
@@ -19,11 +18,11 @@ public class CollectivePattern implements SegmentPattern {
 	}
 	
 	@Override
-	public SegmentPatternContext match(String str, int index) {
-		SegmentPatternContext ctx = null;
+	public Context match(String str, int index) {
+		Context ctx = null;
 		int i = -1;
 		for (SegmentPattern ptn : _ptns) {
-			SegmentPatternContext ctxd = ptn.match(str, index);
+			Context ctxd = ptn.match(str, index);
 			if (ctxd != null) {
 				int j = ctxd.start();
 				if (i < 0 || j < i) {

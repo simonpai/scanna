@@ -3,17 +3,17 @@
  */
 package org.scanna.segment.impl;
 
-import org.scanna.segment.SegmentPatternContext;
+import org.scanna.segment.SegmentPattern.Context;
 
 /**
- * TODO: remove
+ * 
  * @author simonpai
  */
-public abstract class AbstractPatternContext implements SegmentPatternContext {
+public abstract class SimpleContext implements Context {
 	
 	protected final int _start, _type;
 	
-	protected AbstractPatternContext(int start, int type) {
+	protected SimpleContext(int start, int type) {
 		_start = start;
 		_type = type;
 	}
@@ -23,6 +23,8 @@ public abstract class AbstractPatternContext implements SegmentPatternContext {
 		return _start;
 	}
 	
+	/** 
+	 */
 	public abstract int end0(String str, int start);
 	
 	@Override

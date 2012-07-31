@@ -4,7 +4,6 @@
 package org.scanna.segment.impl;
 
 import org.scanna.segment.SegmentPattern;
-import org.scanna.segment.SegmentPatternContext;
 
 /**
  * Skeleton implementation for {@link SegmentPattern} that does not require state.
@@ -18,7 +17,7 @@ public abstract class StaticPattern extends AbstractPattern {
 	
 	/** Return the index at which the pattern starts.
 	 * @return the start index, or {@link SegmentPattern#NOT_FOUND} if not found.
-	 * @see SegmentPatternContext#start()
+	 * @see Context#start()
 	 */
 	protected abstract int match0(String str, int index);
 	
@@ -32,14 +31,14 @@ public abstract class StaticPattern extends AbstractPattern {
 	 * is less than the string length, {@link SegmentPattern#NOT_FOUND} if not 
 	 * found, or {@link SegmentPattern#END_OF_LINE} if the pattern extends 
 	 * exactly to the end of line (like line comment, for example).
-	 * @see SegmentPatternContext#end(String, int)
+	 * @see Context#end(String, int)
 	 */
 	protected abstract int end0(String str, int start);
 	
 	@Override
-	public SegmentPatternContext match(String str, int index) {
+	public Context match(String str, int index) {
 		final int i = match0(str, index);
-		return i < 0 ? null : new SegmentPatternContext() {
+		return i < 0 ? null : new Context() {
 			public int start() {
 				return i;
 			}
