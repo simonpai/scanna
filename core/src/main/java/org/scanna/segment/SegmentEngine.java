@@ -26,6 +26,7 @@ public class SegmentEngine {
 		_pptns = new CollectivePattern(patterns);
 	}
 	
+	// TODO: step
 	// TODO: iterable, which returns an Iterable instead of List
 	public List<Line> run(Document document) {
 		List<String> rawContent = document.getContent();
