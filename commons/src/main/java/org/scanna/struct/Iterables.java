@@ -4,6 +4,7 @@
 package org.scanna.struct;
 
 import java.util.Iterator;
+import java.util.List;
 
 /** Collection of utilities for {@link Iterable}.
  * @author simonpai
@@ -31,8 +32,7 @@ public class Iterables {
 		};
 	}
 	
-	/** TODO
-	 */
+	/** Create an {@link Iterable} by filtering items in a given {@link Iterable}. */
 	public static <T> Iterable<T> filter(final Iterable<T> iterable, final Filter<T> filter) {
 		return new Iterable<T>() {
 			public Iterator<T> iterator() {
@@ -41,8 +41,7 @@ public class Iterables {
 		};
 	}
 	
-	/** TODO
-	 */
+	/** Create an {@link Iterable} consisting of a single element. */
 	public static <T> Iterable<T> singleton(final Factory<T> factory) {
 		return new Iterable<T>() {
 			public Iterator<T> iterator() {
@@ -51,14 +50,23 @@ public class Iterables {
 		};
 	}
 	
-	/** TODO
-	 */
+	/** Create an {@link Iterable} consisting of a single element. */
 	public static <T> Iterable<T> singleton(final T item) {
 		return new Iterable<T>() {
 			public Iterator<T> iterator() {
 				return new SingletonIterator<T>(item);
 			}
 		};
+	}
+	
+	/** Convert an {@link Iterable} to a list, by iterating through all its
+	 * elements.
+	 */
+	public static <T> List<T> list(final Iterable<T> iterable) {
+		List<T> list = new java.util.ArrayList<T>();
+		for (T item : iterable)
+			list.add(item);
+		return list;
 	}
 	
 }
