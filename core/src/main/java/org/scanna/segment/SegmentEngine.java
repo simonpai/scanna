@@ -9,6 +9,8 @@ import java.util.List;
 import org.scanna.model.Document;
 import org.scanna.segment.SegmentPattern;
 import org.scanna.segment.impl.CollectivePattern;
+import org.scanna.struct.Converter;
+import org.scanna.struct.Iterables;
 
 import static org.scanna.segment.SegmentPattern.END_OF_LINE;
 import static org.scanna.segment.SegmentPattern.NOT_FOUND;
@@ -22,33 +24,39 @@ public class SegmentEngine {
 	
 	protected final SegmentPattern _pptns;
 	
+	/** Construct a segment engine from given {@link SegmentPattern}.
+	 */
 	public SegmentEngine(SegmentPattern ... patterns) {
 		_pptns = new CollectivePattern(patterns);
 	}
 	
-	// TODO: step
-	// TODO: iterable, which returns an Iterable instead of List
-	public List<Line> run(Document document) {
-		List<String> rawContent = document.getContent();
-		List<Line> res = new ArrayList<Line>(rawContent.size());
-		SegmentationContext ctx = new SegmentationContext();
-		int row = 1; // 1-based
-		for (String str : rawContent) {
-			List<Segment> segs = segment(document, row, str, ctx);
-			res.add(createLine(document, row, segs, ctx));
-			row++;
-		}
-		return res;
+	/** Return an iterable of {@link Line} from a {@link Document}.
+	 */
+	public Iterable<Line> run(final Document document) {
+		return Iterables.convert(document.getContent(), 
+				new Converter<String, Line>() {
+			
+			private SegmentationContext ctx = new SegmentationContext();
+			
+			public Line convert(String str) {
+				// TODO: organize
+				List<Segment> segs = segment(document, str, ctx);
+				Line line = createLine(document, segs, ctx);
+				ctx.nextRow();
+				return line;
+			}
+		});
 	}
 	
-	protected List<Segment> segment(Document document, final int row, 
-			String str, SegmentationContext sctx) {
+	protected List<Segment> segment(Document document, String str, 
+			SegmentationContext sctx) {
 		List<Segment> res = new ArrayList<Segment>();
 		Segment prev = null;
 		
 		// continue from previous line
-		int currType = sctx.getType();
-		SegmentPattern.Context currCtx = sctx.getPattern();
+		int currType = sctx.type();
+		int row = sctx.row();
+		SegmentPattern.Context currCtx = sctx.patternCtx();
 		
 		final int strlen = str.length();
 		boolean first = true;
@@ -102,21 +110,31 @@ public class SegmentEngine {
 				str.substring(start) : str.substring(start, end), type, previous);
 	}
 	
-	protected Line createLine(Document document, int row, 
-			List<Segment> segments, SegmentationContext ctx) {
-		return new Line(document, row, segments);
+	protected Line createLine(Document document, List<Segment> segments, 
+			SegmentationContext ctx) {
+		return new Line(document, ctx.row(), segments);
 	}
 	
+	/**
+	 * Internally used by {@link SegmentEngine}, which provides a context to
+	 * keep track of information carried over lines.
+	 */
 	protected static class SegmentationContext {
+		protected int _row = 1; // 1-based;
 		protected SegmentPattern.Context _ctx = null;
 		protected int _type = Segment.RAW;
 		
-		public SegmentPattern.Context getPattern() { return _ctx; }
-		public int getType() { return _type; }
+		public SegmentPattern.Context patternCtx() { return _ctx; }
+		public int type() { return _type; }
+		public int row() { return _row; }
 		
 		public void update(SegmentPattern.Context ctx, int type) {
 			_ctx = ctx;
 			_type = type;
+		}
+		
+		public void nextRow() {
+			_row++;
 		}
 		
 	}
