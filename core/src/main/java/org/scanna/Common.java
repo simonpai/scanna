@@ -1,17 +1,23 @@
 /*
  * 
  */
-package org.scanna.segment;
+package org.scanna;
 
+import org.scanna.segment.Segment;
+import org.scanna.segment.SegmentMask;
+import org.scanna.segment.SegmentPattern;
+import org.scanna.segment.impl.AbstractPattern;
 import org.scanna.segment.impl.BlockPattern;
+import org.scanna.segment.impl.FixedStringPattern;
 import org.scanna.segment.impl.LinePattern;
 import org.scanna.segment.impl.QuotedPattern;
+import org.scanna.segment.impl.SimpleContext;
 import org.scanna.util.Texts;
 
 /**
  * Collection of commonly used implementations of {@link SegmentPattern} and 
- * {@link SegmentMask}, which falls under {@link Patterns} and 
- * {@link Masks}, respectively.
+ * {@link SegmentMask}, which falls under {@link Patterns} and {@link Masks}, 
+ * respectively.
  * @author simonpai
  */
 public class Common {
@@ -37,22 +43,29 @@ public class Common {
 		public static final SegmentPattern DOCUMENTATION = 
 				new BlockPattern(Segment.DOCUMENTATION, "/**", "*/", "[Documentation]");
 		
-		// TODO: DOCUMENTATION_AND_BLOCK_COMMENT
-		
-		/** Empty block comment pattern. This is introduced due to the fact that
-		 * <tt>/**&#47;</tt> shall be considered as block comment. When 
-		 * {@link DOCUMENTATION} and {@link BLOCK_COMMENT} are both present,
-		 * this pattern has to precede them.
+		/** A pattern that captures both documentation and block comment. It
+		 * also correctly handles the case that <tt>/**&#47;</tt> shall be 
+		 * considered as block comment.
 		 */
-		//public static final SegmentPattern EMPTY_BLOCK_COMMENT = 
-		//		new AbstractSegmentPattern(Segment.COMMENT, "[Block Comment]") {
-		//	public int match(String str, int index) {
-		//		return str.indexOf("/**/", index);
-		//	}
-		//	public int end(String str, int start) {
-		//		return start + 4;
-		//	}
-		//};
+		public static final SegmentPattern DOCUMENTATION_AND_BLOCK_COMMENT = 
+				new AbstractPattern(0, "[DOC / BLOCK COMMENT]") {
+			public Context match(String str, int index) {
+				int i = str.indexOf("/*", index);
+				if (i < 0)
+					return null;
+				int len = str.length();
+				boolean doc = len > i + 2 && str.charAt(i + 2) == '*'
+						&& (len < i + 4 || str.charAt(i + 3) != '/'); // exclude /**/
+				int type = doc ? Segment.DOCUMENTATION : Segment.COMMENT;
+				return new SimpleContext(i, type) {
+					public int end0(String str, int start) {
+						int st = start == SegmentPattern.CONTINUED ? 0 : start + 2;
+						int j = str.indexOf("*/", st);
+						return j < 0 ? SegmentPattern.NOT_FOUND : j;
+					}
+				};
+			}
+		};
 		
 		/** Single-quoted string pattern. */
 		public static final SegmentPattern SINGLE_QUOTED = 
@@ -61,6 +74,14 @@ public class Common {
 		/** Double-quoted string pattern. */
 		public static final SegmentPattern DOUBLE_QUOTED = 
 				new QuotedPattern(Segment.DOUBLE_QUOTED, '"', "[Double-Quoted]");
+		
+		/** Left brace (curly bracket) */
+		public static final SegmentPattern LEFT_BRACE = 
+				new FixedStringPattern(Segment.LEFT_BRACE, "{", "[Left Brace]");
+		
+		/** Right brace (curly bracket) */
+		public static final SegmentPattern RIGHT_BRACE = 
+				new FixedStringPattern(Segment.RIGHT_BRACE, "}", "[Right Brace]");
 		
 	}
 	

@@ -1,7 +1,7 @@
 /*
  * 
  */
-package org.scanna.model;
+package org.scanna.document;
 
 import java.util.List;
 

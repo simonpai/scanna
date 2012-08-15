@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.scanna.model.Document;
+import org.scanna.document.Document;
 
 /**
  * A segmentation of a line of string in a {@link Document}.

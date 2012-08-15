@@ -6,7 +6,7 @@ package org.scanna.segment;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.scanna.model.Document;
+import org.scanna.document.Document;
 import org.scanna.segment.SegmentPattern;
 import org.scanna.segment.impl.CollectivePattern;
 import org.scanna.struct.Converter;

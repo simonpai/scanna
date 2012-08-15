@@ -14,7 +14,7 @@ Copyright (C) 2011 Potix Corporation. All Rights Reserved.
 {{IS_RIGHT
 }}IS_RIGHT
 */
-package org.scanna.model;
+package org.scanna;
 
 /**
  * 

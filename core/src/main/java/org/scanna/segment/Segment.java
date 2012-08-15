@@ -22,8 +22,12 @@ public class Segment {
 	public static final int SINGLE_QUOTED = 0xFF02;
 	/** double quoted string */
 	public static final int DOUBLE_QUOTED = 0xFF03;
-	/** language keyword */
+	/** keyword */
 	public static final int KEYWORD = 0xFF10;
+	/** left curly bracket */
+	public static final int LEFT_BRACE = 0xFF20;
+	/** right curly bracket */
+	public static final int RIGHT_BRACE = 0xFF21;
 	
 	
 	

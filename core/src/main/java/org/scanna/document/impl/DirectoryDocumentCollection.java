@@ -1,7 +1,7 @@
 /*
  * 
  */
-package org.scanna.model.impl;
+package org.scanna.document.impl;
 
 import java.io.File;
 import java.util.Arrays;

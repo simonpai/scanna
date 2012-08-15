@@ -14,7 +14,7 @@ public class FixedStringPattern extends StaticPattern {
 	protected final int _len;
 	protected final String _target;
 	
-	public FixedStringPattern(String target, int type, String name) {
+	public FixedStringPattern(int type, String target, String name) {
 		super(type, name);
 		_target = target;
 		_len = target.length();

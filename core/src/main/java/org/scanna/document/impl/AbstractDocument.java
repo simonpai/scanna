@@ -1,9 +1,9 @@
 /*
  * 
  */
-package org.scanna.model.impl;
+package org.scanna.document.impl;
 
-import org.scanna.model.Document;
+import org.scanna.document.Document;
 
 /** Skeleton implementation of {@link Document}.
  * @author simonpai
