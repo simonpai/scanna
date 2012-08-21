@@ -3,6 +3,7 @@
  */
 package org.scanna.segment;
 
+import org.scanna.segment.impl.LineImpl;
 import org.scanna.util.Texts;
 
 /**
@@ -89,13 +90,13 @@ public class Segment {
 		return _data;
 	}
 	
-	/** Retrieve the previous {@link Segment} in the same {@link Line}.
+	/** Retrieve the previous {@link Segment} in the same {@link LineImpl}.
 	 */
 	public Segment previous() {
 		return _prev;
 	}
 	
-	/** Retrieve the next {@link Segment} in the same {@link Line}.
+	/** Retrieve the next {@link Segment} in the same {@link LineImpl}.
 	 */
 	public Segment next() {
 		return _next;

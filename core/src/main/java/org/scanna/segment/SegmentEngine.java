@@ -9,6 +9,7 @@ import java.util.List;
 import org.scanna.document.Document;
 import org.scanna.segment.SegmentPattern;
 import org.scanna.segment.impl.CollectivePattern;
+import org.scanna.segment.impl.LineImpl;
 import org.scanna.struct.Converter;
 import org.scanna.struct.Iterables;
 
@@ -30,7 +31,7 @@ public class SegmentEngine {
 		_pptns = new CollectivePattern(patterns);
 	}
 	
-	/** Return an iterable of {@link Line} from a {@link Document}.
+	/** Return an iterable of {@link LineImpl} from a {@link Document}.
 	 */
 	public Iterable<Line> run(final Document document) {
 		return Iterables.convert(document.getContent(), 
@@ -112,7 +113,7 @@ public class SegmentEngine {
 	
 	protected Line createLine(Document document, List<Segment> segments, 
 			SegmentationContext ctx) {
-		return new Line(document, ctx.row(), segments);
+		return new LineImpl(document, ctx.row(), segments);
 	}
 	
 	/**
