@@ -6,10 +6,11 @@ package org.scanna.segment;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.scanna.Line;
 import org.scanna.document.Document;
+import org.scanna.impl.LineImpl;
 import org.scanna.segment.SegmentPattern;
 import org.scanna.segment.impl.CollectivePattern;
-import org.scanna.segment.impl.LineImpl;
 import org.scanna.struct.Converter;
 import org.scanna.struct.Iterables;
 

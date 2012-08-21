@@ -3,7 +3,7 @@
  */
 package org.scanna.seeker;
 
-import org.scanna.segment.Line;
+import org.scanna.Line;
 
 /**
  * TODO

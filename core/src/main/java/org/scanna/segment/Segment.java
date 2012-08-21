@@ -3,7 +3,7 @@
  */
 package org.scanna.segment;
 
-import org.scanna.segment.impl.LineImpl;
+import org.scanna.impl.LineImpl;
 import org.scanna.util.Texts;
 
 /**

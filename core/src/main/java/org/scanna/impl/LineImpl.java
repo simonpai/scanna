@@ -1,7 +1,7 @@
 /*
  * 
  */
-package org.scanna.segment.impl;
+package org.scanna.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -9,9 +9,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.scanna.Line;
 import org.scanna.document.Document;
 import org.scanna.seeker.Event;
-import org.scanna.segment.Line;
 import org.scanna.segment.Segment;
 import org.scanna.segment.SegmentMask;
 
