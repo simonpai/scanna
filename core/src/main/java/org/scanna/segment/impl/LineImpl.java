@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.scanna.document.Document;
+import org.scanna.seeker.Event;
 import org.scanna.segment.Line;
 import org.scanna.segment.Segment;
 import org.scanna.segment.SegmentMask;
@@ -20,11 +21,12 @@ import org.scanna.segment.SegmentMask;
  */
 public class LineImpl implements Line {
 	
-	private final Document _document;
-	private final int _row;
-	private final List<Segment> _segments;
+	protected final Document _document;
+	protected final int _row;
+	protected final List<Segment> _segments;
 	
-	private Map<SegmentMask, String> _contentCache = new HashMap<SegmentMask, String>();
+	protected final Map<SegmentMask, String> _contentCache = 
+			new HashMap<SegmentMask, String>();
 	
 	public LineImpl(Document document, int row, List<Segment> segments) {
 		_document = document;
@@ -86,6 +88,11 @@ public class LineImpl implements Line {
 		for (int j = 0; j < list.size(); j++)
 			res[j] = list.get(j);
 		return res;
+	}
+	
+	@Override
+	public Iterable<Event> getEvents() {
+		return Collections.emptyList();
 	}
 	
 	@Override

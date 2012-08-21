@@ -6,6 +6,7 @@ package org.scanna.segment;
 import java.util.List;
 
 import org.scanna.document.Document;
+import org.scanna.seeker.Event;
 
 /**
  * A segmentation of a line of string in a {@link Document}.
@@ -38,5 +39,10 @@ public interface Line {
 	 * @param type a segment type. See {@link Segment#type()}.
 	 */
 	public boolean hasType(int type);
+	
+	/** TODO
+	 * @return
+	 */
+	public Iterable<Event> getEvents();
 	
 }
