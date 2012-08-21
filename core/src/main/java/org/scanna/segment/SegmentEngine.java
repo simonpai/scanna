@@ -32,7 +32,7 @@ public class SegmentEngine {
 		_pptns = new CollectivePattern(patterns);
 	}
 	
-	/** Return an iterable of {@link LineImpl} from a {@link Document}.
+	/** Return an iterable of {@link Line} from a {@link Document}.
 	 */
 	public Iterable<Line> run(final Document document) {
 		return Iterables.convert(document.getContent(), 
