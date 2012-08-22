@@ -9,11 +9,11 @@ import org.scanna.segment.SegmentPattern;
  * 
  * @author simonpai
  */
-public class CollectivePattern implements SegmentPattern {
+public class CompositePattern implements SegmentPattern {
 	
 	protected final SegmentPattern[] _ptns;
 	
-	public CollectivePattern(SegmentPattern[] patterns) {
+	public CompositePattern(SegmentPattern[] patterns) {
 		_ptns = patterns.clone();
 	}
 	

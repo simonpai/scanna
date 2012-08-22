@@ -10,7 +10,7 @@ import org.scanna.Line;
 import org.scanna.document.Document;
 import org.scanna.impl.LineImpl;
 import org.scanna.segment.SegmentPattern;
-import org.scanna.segment.impl.CollectivePattern;
+import org.scanna.segment.impl.CompositePattern;
 import org.scanna.struct.Converter;
 import org.scanna.struct.Iterables;
 
@@ -29,7 +29,7 @@ public class SegmentEngine {
 	/** Construct a segment engine from given {@link SegmentPattern}.
 	 */
 	public SegmentEngine(SegmentPattern ... patterns) {
-		_pptns = new CollectivePattern(patterns);
+		_pptns = new CompositePattern(patterns);
 	}
 	
 	/** Return an iterable of {@link Line} from a {@link Document}.
