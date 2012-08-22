@@ -6,7 +6,7 @@ package org.scanna;
 import java.util.List;
 
 import org.scanna.document.Document;
-import org.scanna.seeker.Event;
+import org.scanna.event.Event;
 import org.scanna.segment.Segment;
 import org.scanna.segment.SegmentMask;
 

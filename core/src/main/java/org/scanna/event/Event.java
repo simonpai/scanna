@@ -1,7 +1,7 @@
 /*
  * 
  */
-package org.scanna.seeker;
+package org.scanna.event;
 
 import org.scanna.Line;
 
