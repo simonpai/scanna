@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.scanna.Line;
 import org.scanna.document.Document;
-import org.scanna.impl.LineImpl;
 import org.scanna.segment.SegmentPattern;
 import org.scanna.segment.impl.CompositePattern;
 import org.scanna.struct.Converter;
@@ -114,7 +113,7 @@ public class SegmentEngine {
 	
 	protected Line createLine(Document document, List<Segment> segments, 
 			SegmentationContext ctx) {
-		return new LineImpl(document, ctx.row(), segments);
+		return new Line(document, ctx.row(), segments);
 	}
 	
 	/**
