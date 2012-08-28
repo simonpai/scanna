@@ -14,9 +14,11 @@ Copyright (C) 2011 Potix Corporation. All Rights Reserved.
 {{IS_RIGHT
 }}IS_RIGHT
 */
-package org.scanna.struct;
+package org.scanna.struct.iter;
 
 import java.util.Iterator;
+
+import org.scanna.struct.Converter;
 
 /** An iterator of type {@link S} converted from an iterator of type {@link T} 
  * according to a given {@link Converter}. 

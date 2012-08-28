@@ -1,10 +1,12 @@
 /*
  * 
  */
-package org.scanna.struct;
+package org.scanna.struct.iter;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+import org.scanna.struct.Factory;
 
 /**
  * 

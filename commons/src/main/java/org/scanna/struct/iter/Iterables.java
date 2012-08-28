@@ -1,10 +1,14 @@
 /*
  * 
  */
-package org.scanna.struct;
+package org.scanna.struct.iter;
 
 import java.util.Iterator;
 import java.util.List;
+
+import org.scanna.struct.Converter;
+import org.scanna.struct.Factory;
+import org.scanna.struct.Filter;
 
 /** Collection of utilities for {@link Iterable}.
  * @author simonpai

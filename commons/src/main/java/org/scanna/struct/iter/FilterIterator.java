@@ -1,9 +1,11 @@
 /*
  * 
  */
-package org.scanna.struct;
+package org.scanna.struct.iter;
 
 import java.util.Iterator;
+
+import org.scanna.struct.Filter;
 
 /**
  * 
