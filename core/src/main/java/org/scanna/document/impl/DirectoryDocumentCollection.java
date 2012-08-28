@@ -8,9 +8,9 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 import org.scanna.struct.Converter;
-import org.scanna.struct.Iterables;
-import org.scanna.struct.SingletonIterator;
-import org.scanna.struct.JointIterator;
+import org.scanna.struct.iter.Iterables;
+import org.scanna.struct.iter.JointIterator;
+import org.scanna.struct.iter.SingletonIterator;
 
 /**
  * 

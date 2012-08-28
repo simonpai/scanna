@@ -11,7 +11,7 @@ import org.scanna.document.Document;
 import org.scanna.segment.SegmentPattern;
 import org.scanna.segment.impl.CompositePattern;
 import org.scanna.struct.Converter;
-import org.scanna.struct.Iterables;
+import org.scanna.struct.iter.Iterables;
 
 import static org.scanna.segment.SegmentPattern.END_OF_LINE;
 import static org.scanna.segment.SegmentPattern.NOT_FOUND;
