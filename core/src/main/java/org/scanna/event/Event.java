@@ -6,36 +6,31 @@ package org.scanna.event;
 import org.scanna.Line;
 
 /**
- * TODO
+ * An abstraction to represent the occurrence of some pattern in document. For
+ * instance, variable declaration, value assignment, function call, etc.
  * @author simonpai
  */
-public class Event implements Comparable<Event> {
+public class Event<T> {
 	
-	protected final Line _line;
-	protected final int _col, _row;
+	/** The {@link Line} on which Event occurs. */
+	public final Line line;
 	
-	public Event(Line line, int col) {
-		_line = line;
-		_col = col;
-		_row = line.getRow();
-	}
+	/** Column number at which Event occurs. */
+	public final int column;
 	
-	public Line getLine() {
-		return _line;
-	}
+	/** Row number at which Event occurs. */
+	public final int row;
 	
-	public int getRow() {
-		return _row;
-	}
+	/** Event data. */
+	public final T data;
 	
-	public int getColumn() {
-		return _col;
-	}
-	
-	@Override
-	public int compareTo(Event evt) {
-		int rdiff = _row - evt._row;
-		return rdiff != 0 ? rdiff : _col - evt._col;
+	/** Construct an Event.
+	 */
+	public Event(Line line, int column, T data) {
+		this.line = line;
+		this.column = column;
+		this.row = line.getRow();
+		this.data = data;
 	}
 	
 }
