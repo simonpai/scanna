@@ -18,7 +18,8 @@ import static org.scanna.segment.SegmentPattern.NOT_FOUND;
 import static org.scanna.segment.SegmentPattern.CONTINUED;
 
 /**
- * 
+ * An utility to cut String into {@link Segment} and pack them into 
+ * a {@link Line} object.
  * @author simonpai
  */
 public class SegmentEngine {

@@ -3,12 +3,14 @@
  */
 package org.scanna.event;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 
 import org.scanna.Line;
+import org.scanna.event.impl.BasicScanner;
 import org.scanna.struct.mapc.MapList;
 import org.scanna.struct.mapc.impl.HashMapList;
 
@@ -60,6 +62,7 @@ public class EventEngine {
 	
 	// initialization //
 	protected final HandlerBundle<?>[] _hbs;
+	protected final HandlerBundle<Object> _ghb;
 	
 	/**
 	 * Construct an EventEngine with given Scanners. The engine will also 
@@ -73,10 +76,13 @@ public class EventEngine {
 			install(scnSet, new Node<Scanner<?>>(null, s));
 		
 		// initialize handlers
-		Scanner<?>[] scns = scnSet.toArray(new Scanner[0]);
-		_hbs = new HandlerBundle[scns.length];
-		for (int i = 0; i < scns.length; i++)
-			_hbs[i] = HandlerBundle.create(scns[i]);
+		List<HandlerBundle<?>> hblist = new ArrayList<HandlerBundle<?>>();
+		for (Scanner<?> s : scnSet)
+			hblist.add(HandlerBundle.create(s));
+		
+		// global event handlers, wrapped into a proxy Scanner
+		hblist.add(_ghb = HandlerBundle.create(new BasicScanner<Object>()));
+		_hbs = hblist.toArray(new HandlerBundle[0]);
 		
 	}
 	
@@ -145,6 +151,14 @@ public class EventEngine {
 			return new HandlerBundle<C>(scanner);
 		}
 		
+	}
+	
+	/** Register a global {@link EventHandler}. The handler will be called after
+	 * all the Scanners are served. (i.e., as if registered on an extra last
+	 * Scanner of the engine.)
+	 */
+	public <T> void listen(String name, EventHandler<T, Object> handler) {
+		_ghb._map.add(name, handler);
 	}
 	
 	
