@@ -21,6 +21,7 @@ public class Line {
 	
 	protected final Document _document;
 	protected final int _row;
+	protected int _len = -1;
 	
 	public Line(Document document, int row, List<Segment> segments) {
 		_document = document;
@@ -38,6 +39,15 @@ public class Line {
 	 */
 	public int getRow() {
 		return _row;
+	}
+	
+	/** Return the length of raw content string.
+	 * @see #getContent()
+	 */
+	public int length() {
+		if (_len < 0)
+			_len = getContent().length();
+		return _len;
 	}
 	
 	

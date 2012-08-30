@@ -12,7 +12,10 @@ import org.scanna.Line;
  */
 public class Event<T> {
 	
-	/** The {@link Line} on which Event occurs. */
+	/** The event name. */
+	public final String name;
+	
+	/** The Line on which Event occurs. */
 	public final Line line;
 	
 	/** Column number at which Event occurs. */
@@ -26,7 +29,8 @@ public class Event<T> {
 	
 	/** Construct an Event.
 	 */
-	public Event(Line line, int column, T data) {
+	public Event(String name, T data, Line line, int column) {
+		this.name = name;
 		this.line = line;
 		this.column = column;
 		this.row = line.getRow();

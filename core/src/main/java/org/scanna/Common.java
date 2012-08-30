@@ -3,6 +3,8 @@
  */
 package org.scanna;
 
+import org.scanna.event.Scanner;
+import org.scanna.event.impl.InlineTabScanner;
 import org.scanna.segment.Segment;
 import org.scanna.segment.SegmentMask;
 import org.scanna.segment.SegmentPattern;
@@ -128,6 +130,39 @@ public class Common {
 				return Texts.nullify(segment.content());
 			}
 		}
+		
+	}
+	
+	// TODO: organize event doc
+	
+	/**
+	 * Built-in {@link Event} names.
+	 * @author simonpai
+	 */
+	public static class Events {
+		
+		/** Event posted by {@link Scanners#INLINE_TAB}. 
+		 * <ul>
+		 * <li>Data: Integer, as tab character sequence length, always positive</li>
+		 * </ul>
+		 */
+		public static final String ON_INLINE_TAB = "onInlineTab";
+		
+	}
+	
+	/**
+	 * Commonly use {@link Scanner}.
+	 * @author simonpai
+	 */
+	public static class Scanners {
+		
+		/** The scanner that searches for in-line tabs. (i.e. tab characters that
+		 * are not at the beginning of a line) 
+		 * <ul>
+		 * <li>Event Name: {@link Events#ON_INLINE_TAB}</li>
+		 * </ul>
+		 */
+		public static final Scanner<Object> INLINE_TAB = new InlineTabScanner();
 		
 	}
 	
