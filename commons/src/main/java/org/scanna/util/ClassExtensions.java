@@ -52,7 +52,7 @@ public class ClassExtensions {
 				sb.append(ft.toString());
 			sb.append(" ").append(fn).append(" = ").append(cn).append(".").append(fn).append(";");
 			
-			exporter.handle(sb.toString());
+			exporter.run(sb.toString());
 		}
 	}
 	
@@ -164,7 +164,7 @@ public class ClassExtensions {
 				}
 				sb.append(");\n\t}");
 				
-				exporter.handle(sb.toString());
+				exporter.run(sb.toString());
 			} catch (Exception e) {} // ignore for now
 		}
 	}

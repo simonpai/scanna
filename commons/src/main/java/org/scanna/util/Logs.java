@@ -35,7 +35,7 @@ public class Logs {
 		}
 		long diff = t - _timestamp;
 		if (logHandler != null && format != null)
-			logHandler.handle(String.format(format, diff));
+			logHandler.run(String.format(format, diff));
 		_timestamp = t;
 		return diff;
 	}

@@ -10,6 +10,6 @@ public interface Handler<T> {
 	
 	/** Dealing with item of type {@link T}.
 	 */
-	public void handle(T item);
+	public void run(T item);
 	
 }
