@@ -6,6 +6,7 @@ package org.scanna.segment.impl;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.scanna.util.Patterns;
 import org.scanna.util.Texts;
 
 /**
@@ -18,15 +19,16 @@ public class KeywordPattern extends AbstractPattern {
 	protected final Pattern _regexPtn;
 	
 	public KeywordPattern(String[] keywords, int type, String name) {
-		this(keywords, "\\b", type, name);
+		this(keywords, null, type, name);
 	}
 	
 	public KeywordPattern(String[] keywords, String boundary, int type, String name) {
 		super(type, name);
 		// TODO: check keyword content: non empty \w word
 		_boundary = boundary;
-		_regexPtn = Pattern.compile(boundary + "(" + 
-					Texts.join(keywords, "|") + ")" + boundary);
+		String kws = Texts.join(keywords, "|");
+		_regexPtn = boundary == null ? Patterns.keywordPattern(kws) : 
+			Patterns.keywordPattern(kws, boundary);
 	}
 	
 	protected int getType(String word) {

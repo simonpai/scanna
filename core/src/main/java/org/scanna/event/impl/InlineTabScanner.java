@@ -34,7 +34,7 @@ public class InlineTabScanner extends BasicScanner<Object> {
 			char c = txt.charAt(j);
 			switch (state) {
 			case INIT:
-				if (c != '\t')
+				if (!Character.isWhitespace(c))
 					state = NOT_IN_TAB;
 				break;
 				

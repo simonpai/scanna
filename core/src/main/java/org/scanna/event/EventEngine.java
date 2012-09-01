@@ -56,6 +56,8 @@ public class EventEngine {
 		 */
 		public C getContext();
 		
+		// TODO: provide event query
+		
 	}
 	
 	
